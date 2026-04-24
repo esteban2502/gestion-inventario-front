@@ -1,0 +1,16 @@
+.alert-wrapper {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1080;
+  width: min(420px, calc(100vw - 2rem));
+  pointer-events: none;
+}
+
+.alert-wrapper .alert {
+  margin: 0;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+  border: 0;
+  border-radius: 12px;
+  pointer-events: auto;
+}

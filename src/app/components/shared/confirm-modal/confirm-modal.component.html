@@ -1,0 +1,24 @@
+@if (isOpen) {
+  <div class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content app-modal">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title">{{ title }}</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="cancel.emit()"></button>
+        </div>
+        <div class="modal-body pt-2">
+          <p class="mb-0">{{ message }}</p>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-outline-secondary" (click)="cancel.emit()">
+            {{ cancelText }}
+          </button>
+          <button type="button" class="btn btn-danger" (click)="confirm.emit()">
+            {{ confirmText }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop fade show app-backdrop"></div>
+}

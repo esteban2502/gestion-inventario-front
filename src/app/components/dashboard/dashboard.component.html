@@ -1,0 +1,86 @@
+@if (loading) {
+  <app-spinner></app-spinner>
+} @else if (summary) {
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-md-6 col-xl-3">
+      <div class="card stat-card">
+        <div class="card-body">
+          <h6 class="text-muted">Productos</h6>
+          <h3>{{ summary.totalProducts }}</h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3">
+      <div class="card stat-card">
+        <div class="card-body">
+          <h6 class="text-muted">Categorias</h6>
+          <h3>{{ summary.totalCategories }}</h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3">
+      <div class="card stat-card">
+        <div class="card-body">
+          <h6 class="text-muted">Bajo stock</h6>
+          <h3>{{ summary.lowStockProductsCount }}</h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3">
+      <div class="card stat-card">
+        <div class="card-body">
+          <h6 class="text-muted">Valor inventario</h6>
+          <h3>{{ summary.totalInventoryValue | currency:'USD':'symbol':'1.2-2' }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-lg-7">
+      <div class="card">
+        <div class="card-header">Productos con bajo stock</div>
+        <div class="card-body">
+          @if (summary.lowStockProducts.length === 0) {
+            <p class="text-muted mb-0">No hay productos con bajo stock.</p>
+          } @else {
+            <div class="table-responsive">
+              <table class="table table-hover mb-0">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Categoria</th>
+                    <th>Stock</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (product of summary.lowStockProducts; track product.id) {
+                    <tr>
+                      <td>{{ product.name }}</td>
+                      <td>{{ product.categoryName || '-' }}</td>
+                      <td>{{ product.stock }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-5">
+      <div class="card">
+        <div class="card-header">Productos por categoria</div>
+        <ul class="list-group list-group-flush">
+          @for (entry of entries(); track entry[0]) {
+            <li class="list-group-item d-flex justify-content-between">
+              <span>{{ entry[0] }}</span>
+              <strong>{{ entry[1] }}</strong>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+}
