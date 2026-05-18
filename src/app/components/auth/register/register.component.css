@@ -1,0 +1,35 @@
+.auth-wrapper {
+  min-height: calc(100vh - 180px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 680px;
+  border: 0;
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.auth-title {
+  color: #1f2a37;
+  font-weight: 800;
+  margin: 0;
+}
+
+.auth-link {
+  color: var(--ml-btn-blue);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.auth-link:hover {
+  color: var(--ml-btn-blue-hover);
+  text-decoration: underline;
+}
+
+.password-toggle {
+  min-width: 44px;
+}

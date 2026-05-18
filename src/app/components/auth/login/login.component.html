@@ -1,0 +1,32 @@
+<section class="auth-wrapper">
+  <div class="card auth-card">
+    <div class="card-body p-4 p-md-5">
+      <h2 class="auth-title mb-2">Iniciar sesion</h2>
+      <p class="text-muted mb-4">Administra tus productos como vendedor.</p>
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="mb-3">
+          <label class="form-label">Correo electronico</label>
+          <input type="email" class="form-control" formControlName="email" placeholder="correo@ejemplo.com" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Contrasena</label>
+          <input type="password" class="form-control" formControlName="password" placeholder="********" />
+        </div>
+
+        <button class="btn btn-primary w-100 mt-2" type="submit" [disabled]="submitting">
+          @if (submitting) {
+            <span class="spinner-border spinner-border-sm me-1"></span>
+          }
+          Ingresar
+        </button>
+      </form>
+
+      <p class="mb-0 mt-4 text-center">
+        ¿Aun no tienes cuenta?
+        <a routerLink="/register" class="auth-link">Registrate</a>
+      </p>
+    </div>
+  </div>
+</section>

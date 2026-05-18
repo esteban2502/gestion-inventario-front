@@ -1,0 +1,105 @@
+<section class="auth-wrapper">
+  <div class="card auth-card">
+    <div class="card-body p-4 p-md-5">
+      <h2 class="auth-title mb-2">Crear cuenta de vendedor</h2>
+      <p class="text-muted mb-4">Registra tus datos para gestionar tu inventario.</p>
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Nombre</label>
+            <input class="form-control" type="text" formControlName="firstName" />
+            @if (form.controls.firstName.touched && form.controls.firstName.invalid) {
+              <small class="text-danger">Ingresa un nombre valido.</small>
+            }
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Apellidos</label>
+            <input class="form-control" type="text" formControlName="lastName" />
+            @if (form.controls.lastName.touched && form.controls.lastName.invalid) {
+              <small class="text-danger">Ingresa apellidos validos.</small>
+            }
+          </div>
+          <div class="col-12">
+            <label class="form-label">Direccion</label>
+            <input class="form-control" type="text" formControlName="address" />
+            @if (form.controls.address.touched && form.controls.address.invalid) {
+              <small class="text-danger">La direccion debe tener entre 5 y 200 caracteres.</small>
+            }
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Telefono</label>
+            <input class="form-control" type="text" formControlName="phone" />
+            @if (form.controls.phone.touched && form.controls.phone.invalid) {
+              <small class="text-danger">Telefono invalido (7 a 20 caracteres).</small>
+            }
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Correo electronico</label>
+            <input class="form-control" type="email" formControlName="email" />
+            @if (form.controls.email.touched && form.controls.email.invalid) {
+              <small class="text-danger">Correo electronico invalido.</small>
+            }
+          </div>
+          <div class="col-12">
+            <label class="form-label">Contraseña</label>
+            <div class="input-group">
+              <input
+                class="form-control"
+                [type]="showPassword ? 'text' : 'password'"
+                formControlName="password"
+              />
+              <button
+                class="btn btn-outline-secondary password-toggle"
+                type="button"
+                (click)="togglePasswordVisibility()"
+                aria-label="Mostrar u ocultar contraseña"
+              >
+                <i [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+              </button>
+            </div>
+            @if (form.controls.password.touched && form.controls.password.invalid) {
+              <small class="text-danger">La contraseña debe tener entre 8 y 72 caracteres.</small>
+            }
+          </div>
+          <div class="col-12">
+            <label class="form-label">Confirmar contraseña</label>
+            <div class="input-group">
+              <input
+                class="form-control"
+                [type]="showConfirmPassword ? 'text' : 'password'"
+                formControlName="confirmPassword"
+              />
+              <button
+                class="btn btn-outline-secondary password-toggle"
+                type="button"
+                (click)="toggleConfirmPasswordVisibility()"
+                aria-label="Mostrar u ocultar confirmacion de contraseña"
+              >
+                <i [class]="showConfirmPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+              </button>
+            </div>
+            @if (form.controls.confirmPassword.touched && form.controls.confirmPassword.invalid) {
+              <small class="text-danger">Debes confirmar la contraseña.</small>
+            }
+            @if (form.touched && form.errors?.['passwordMismatch']) {
+              <small class="text-danger">Las contraseñas no coinciden.</small>
+            }
+          </div>
+        </div>
+
+        <button class="btn btn-primary w-100 mt-4" type="submit" [disabled]="submitting">
+          @if (submitting) {
+            <span class="spinner-border spinner-border-sm me-1"></span>
+          }
+          Registrarme
+        </button>
+      </form>
+
+      <p class="mb-0 mt-4 text-center">
+        ¿Ya tienes cuenta?
+        <a routerLink="/login" class="auth-link">Inicia sesion</a>
+      </p>
+    </div>
+  </div>
+</section>
