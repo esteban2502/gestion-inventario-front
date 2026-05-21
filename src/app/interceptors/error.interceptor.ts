@@ -55,7 +55,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     if (error.status === 401) {
       const message = typeof error.error?.error === 'string' ? error.error.error : '';
       if (message.toLowerCase().includes('invalid')) {
-        return 'Correo o contrasena incorrectos';
+        return 'Correo o contraseña incorrectos';
       }
       return 'Sesion invalida. Inicie sesion nuevamente.';
     }
