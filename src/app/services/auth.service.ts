@@ -3,7 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, map, tap } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import { AuthResponse, AuthSession, LoginRequest, RegisterRequest } from '../models/auth.model';
+import {
+  AuthResponse,
+  AuthSession,
+  ForgotPasswordRequest,
+  LoginRequest,
+  MessageResponse,
+  RegisterRequest,
+  ResetPasswordRequest
+} from '../models/auth.model';
 
 const AUTH_SESSION_KEY = 'auth_session';
 
@@ -30,6 +38,14 @@ export class AuthService {
     return this.http.post<AuthResponse>(`${this.apiUrl}/register`, payload).pipe(
       tap((response) => this.saveSession(response))
     );
+  }
+
+  forgotPassword(payload: ForgotPasswordRequest): Observable<MessageResponse> {
+    return this.http.post<MessageResponse>(`${this.apiUrl}/forgot-password`, payload);
+  }
+
+  resetPassword(payload: ResetPasswordRequest): Observable<MessageResponse> {
+    return this.http.post<MessageResponse>(`${this.apiUrl}/reset-password`, payload);
   }
 
   logout(): void {

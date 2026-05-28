@@ -25,9 +25,16 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 401 && !req.url.includes('/auth/login') && !req.url.includes('/auth/register')) {
+        if (
+          error.status === 401
+          && !req.url.includes('/auth/login')
+          && !req.url.includes('/auth/register')
+          && !req.url.includes('/auth/forgot-password')
+          && !req.url.includes('/auth/reset-password')
+        ) {
           this.authService.logout();
-          if (!isPublicRoute(this.router.url)) {
+          const routePath = this.router.url.split('?')[0];
+          if (!isPublicRoute(routePath, this.router.url.includes('?') ? this.router.url.slice(this.router.url.indexOf('?')) : '')) {
             this.router.navigate(['/login']);
           }
         }
@@ -65,6 +72,10 @@ export class ErrorInterceptor implements HttpInterceptor {
     }
 
     if (error.status === 400) {
+      const message = typeof error.error?.error === 'string' ? error.error.error : '';
+      if (message.toLowerCase().includes('reset token')) {
+        return 'El enlace de restablecimiento es invalido o ha expirado. Solicita uno nuevo.';
+      }
       if (typeof error.error === 'string' && error.error.trim().length > 0) {
         return error.error;
       }

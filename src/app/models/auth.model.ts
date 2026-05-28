@@ -30,3 +30,16 @@ export interface AuthSession {
   accessToken: string;
   user: AuthenticatedUser;
 }
+
+export interface ForgotPasswordRequest {
+  email: string;
+}
+
+export interface ResetPasswordRequest {
+  token: string;
+  password: string;
+}
+
+export interface MessageResponse {
+  message: string;
+}

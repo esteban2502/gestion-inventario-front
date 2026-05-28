@@ -1,15 +1,24 @@
 import { Router } from '@angular/router';
 
-import { isPublicRoute } from '../constants/public-routes';
+import {
+  extractResetTokenFromUrl,
+  isPublicRoute,
+  normalizeRoutePath
+} from '../constants/public-routes';
 import { AuthService } from '../services/auth.service';
 
 export function authInitializer(authService: AuthService, router: Router): () => Promise<boolean> {
   return () => {
-    const path = window.location.pathname;
-    const isPublic = isPublicRoute(path);
+    const path = normalizeRoutePath(window.location.pathname);
+    const search = window.location.search;
+    const resetToken = extractResetTokenFromUrl(path, search);
 
-    if (!authService.isAuthenticated() && !isPublic) {
-      return router.navigateByUrl('/login').then(() => false);
+    if (resetToken && !path.startsWith('/reset-password/')) {
+      return router.navigateByUrl(`/reset-password/${resetToken}`, { replaceUrl: true }).then(() => true);
+    }
+
+    if (!authService.isAuthenticated() && !isPublicRoute(path, search)) {
+      return router.navigateByUrl('/login', { replaceUrl: true }).then(() => false);
     }
 
     return Promise.resolve(true);

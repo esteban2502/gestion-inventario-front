@@ -29,3 +29,8 @@
   color: var(--ml-btn-blue-hover);
   text-decoration: underline;
 }
+
+.auth-link-sm {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
